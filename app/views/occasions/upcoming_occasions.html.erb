@@ -1,0 +1,46 @@
+<p id='notice'><%= notice %></p>
+<div class='jumbotron center'>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-md-12'>
+        <p style='font-size: 25pt; color: white; text-align: center;'>Today</p>
+        <% if @occasion_today.first %>
+          <p class='pull-right'><%= image_tag 'face.jpg' %></p>
+          <h3><%= @occasion_today.first.giftee.first_name.titleize %>'s</h3>
+          <h3 class='center' style='color: white;'> <%= @occasion_today.first.type_of_occasion.chars[0..19].join.titleize %></h3>
+          <h3><%= link_to 'view', "occasions/#{@occasion_today.first.id}", {:class => 'btn btn-pink', :style => 'color: #6C3306;' } %></h3>
+          <% if @occasion_today.count > 1 %>
+            <h4><b>There are more occasions today!</b></h4>
+            <%= link_to 'All Occasions', occasions_path, { :style => 'color: #6C3306', :class => 'btn btn-default btn-lg pull-right' } %>
+          <% end %>
+        <% else %>
+          </br>
+          <p class='center'>There are no occasions today</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div></br>
+<table class='table-striped' width = '1100'>
+  <thead>
+  <tr>
+    <% day = 0 %>
+      <% while day < 6 %>
+        <% day += 1 %>
+    <th class='th-upcoming'><%= (Date.today + day).strftime('%A')%></th>
+      <% end %>
+  </tr>
+  <tr>
+    <% day = 0 %>
+    <% while day < 6 %>
+      <% day += 1 %>
+      <td class='td-upcoming'>
+        <% Occasion.where(day_of_occasion: Date.today + day).each do |occasion| %>
+          <%= occasion.giftee.first_name %>'s
+          <%= occasion.type_of_occasion.chars[0..19].join %></br>
+    <% end %>
+      </td>
+  <% end %>
+  </tr>
+  </thead>
+ </table>
