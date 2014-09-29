@@ -1,0 +1,26 @@
+<div class='page-header'>
+  <%= link_to occasions_path, class: 'btn btn-default' do %>
+    <span class='glyphicon glyphicon-list-alt'></span>
+    Back
+  <% end %>
+  <%= link_to edit_occasion_path(@occasion), class: 'btn btn-primary' do %>
+    <span class='glyphicon glyphicon-pencil'></span>
+    Edit
+  <% end %>
+  <h1>Show occasion</h1>
+</div>
+
+<dl class='dl-horizontal'>
+  <dt>The occasion:</dt>
+  <dd><%= @occasion.type_of_occasion %></dd>
+
+  <dt>When:</dt>
+  <dd><%= @occasion.day_of_occasion %></dd>
+
+  <dt>Gifter:</dt>
+  <dd><%= @occasion.gifter_id %></dd>
+
+  <dt>Giftee:</dt>
+  <dd><%= @occasion.giftee.first_name + ' ' + @occasion.giftee.last_name %></dd>
+
+</dl>

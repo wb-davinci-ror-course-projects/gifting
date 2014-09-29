@@ -8,6 +8,7 @@ group :test, :darwin, :development do
   gem 'guard-bundler'
   gem 'ruby_gntp'
   gem 'capybara'
+  gem 'faker'
 end
 
 gem 'bootstrap-generators'

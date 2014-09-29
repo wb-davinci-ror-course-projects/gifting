@@ -1,0 +1,20 @@
+<div class='page-header'>
+  <%= link_to giftees_path, :class => 'btn btn-default' do %>
+    <span class='glyphicon glyphicon-list-alt'></span>
+    Back
+  <% end %>
+  <%= link_to edit_giftee_path(@giftee), :class => 'btn btn-primary' do %>
+    <span class='glyphicon glyphicon-pencil'></span>
+    Edit
+  <% end %>
+  <h1>Show giftee</h1>
+</div>
+
+<dl class='dl-horizontal'>
+  <dt>First name:</dt>
+  <dd><%= @giftee.first_name %></dd>
+
+  <dt>Last name:</dt>
+  <dd><%= @giftee.last_name %></dd>
+
+</dl>
