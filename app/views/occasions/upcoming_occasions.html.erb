@@ -35,7 +35,7 @@
     <% while day < 6 %>
       <% day += 1 %>
       <td class='td-upcoming'>
-        <% Occasion.where(day_of_occasion: Date.today + day).each do |occasion| %>
+        <% Occasion.where(day_of_occasion: Date.today + day, gifter_id: session[:gifter_id]).each do |occasion| %>
           <%= occasion.giftee.first_name %>'s
           <%= occasion.type_of_occasion.chars[0..19].join %></br>
     <% end %>

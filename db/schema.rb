@@ -11,22 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922135908) do
+ActiveRecord::Schema.define(version: 20140929161838) do
 
-  create_table 'giftees', force: true do |t|
-    t.string   'first_name'
-    t.string   'last_name'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
+  create_table "giftees", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table 'occasions', force: true do |t|
-    t.string   'type_of_occasion'
-    t.date     'day_of_occasion'
-    t.integer  'gifter_id'
-    t.integer  'giftee_id'
-    t.datetime 'created_at'
-    t.datetime 'updated_at'
+  create_table "gifters", force: true do |t|
+    t.string   "name"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "occasions", force: true do |t|
+    t.string   "type_of_occasion"
+    t.date     "day_of_occasion"
+    t.integer  "gifter_id"
+    t.integer  "giftee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
