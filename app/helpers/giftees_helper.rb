@@ -1,5 +1,4 @@
 module GifteesHelper
-
   def giftee_names
     names_array = []
     Giftee.order(:first_name).each do |giftee|
@@ -7,5 +6,4 @@ module GifteesHelper
     end
     names_array
   end
-
 end

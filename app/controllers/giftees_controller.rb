@@ -1,5 +1,6 @@
 class GifteesController < ApplicationController
   before_action :set_giftee, only: [:show, :edit, :update, :destroy]
+  before_action :session?
 
   # GET /giftees
   # GET /giftees.json
@@ -71,5 +72,12 @@ class GifteesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def giftee_params
     params.require(:giftee).permit(:first_name, :last_name)
+  end
+
+  def session?
+    if current_user
+    else
+      redirect_to login_path
+    end
   end
 end

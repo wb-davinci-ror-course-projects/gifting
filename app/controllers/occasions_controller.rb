@@ -1,15 +1,15 @@
 class OccasionsController < ApplicationController
   before_action :set_occasion, only: [:show, :edit, :update, :destroy]
-
+  before_action :session?
   # GET /occasions
   # GET /occasions.json
   def index
-    @occasions = Occasion.where('day_of_occasion >= :date_today', date_today: Date.today).order(:day_of_occasion)
+    @occasions = Occasion.where(gifter_id: session[:gifter_id]).order(:day_of_occasion).where('day_of_occasion >= :date_today', date_today: Date.today)
   end
 
   def upcoming_occasions
-    @occasions = Occasion.all
-    @occasion_today = Occasion.where(day_of_occasion: Date.today)
+    @occasions = Occasion.where(gifter_id: session[:gifter_id])
+    @occasion_today = Occasion.where(day_of_occasion: Date.today, gifter_id: session[:gifter_id])
     render :upcoming_occasions
   end
   # GET /occasions/1
@@ -33,6 +33,7 @@ class OccasionsController < ApplicationController
     respond_to do |format|
       @giftee_id = Giftee.where(first_name: params[:giftee_name].split(' ').first, last_name: params[:giftee_name].split(' ').last).first.id
       @occasion.giftee_id = @giftee_id
+      @occasion.gifter_id = session[:gifter_id]
       if @occasion.save
         format.html { redirect_to @occasion, notice: 'Occasion was successfully created.' }
         format.json { render :show, status: :created, location: @occasion }
@@ -77,5 +78,12 @@ class OccasionsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def occasion_params
     params.require(:occasion).permit(:type_of_occasion, :day_of_occasion, :gifter_id, :giftee_name)
+  end
+
+  def session?
+    if current_user
+    else
+      redirect_to login_path
+    end
   end
 end
