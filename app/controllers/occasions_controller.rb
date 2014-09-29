@@ -30,8 +30,9 @@ class OccasionsController < ApplicationController
   # POST /occasions.json
   def create
     @occasion = Occasion.new(occasion_params)
-
     respond_to do |format|
+      @giftee_id = Giftee.where(first_name: params[:giftee_name].split(' ').first, last_name: params[:giftee_name].split(' ').last).first.id
+      @occasion.giftee_id = @giftee_id
       if @occasion.save
         format.html { redirect_to @occasion, notice: 'Occasion was successfully created.' }
         format.json { render :show, status: :created, location: @occasion }
@@ -75,6 +76,6 @@ class OccasionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def occasion_params
-    params.require(:occasion).permit(:type_of_occasion, :day_of_occasion, :gifter_id, :giftee_id)
+    params.require(:occasion).permit(:type_of_occasion, :day_of_occasion, :gifter_id, :giftee_name)
   end
 end
